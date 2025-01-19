@@ -1,0 +1,20 @@
+grammar Feature extends de.monticore.MCBasics, de.monticore.literals.MCCommonLiterals {
+    start Feature;
+
+    symbol scope Feature = "feature" name:Name ":" FeatureAttribute*;
+    interface FeatureAttribute;
+
+    Description implements FeatureAttribute = "-" "description" ":" description:String;
+    Scenario implements FeatureAttribute = "-" "scenario" name:Identifier ":" Description? Workflow;
+
+    symbol Identifier = Name | Digits;
+
+    astrule Identifier = method public String getIdentifier() {
+        return this.isPresentName()? this.getName() : this.getDigits();
+    };
+
+    Workflow = "-" "workflow" ":" Given When? Then;
+    Given = "-" "given" ":" given:String;
+    When = "-" "when" ":" when:String;
+    Then = "-" "then" ":" then:String;
+}

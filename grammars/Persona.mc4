@@ -1,0 +1,17 @@
+grammar Persona extends de.monticore.MCBasics, de.monticore.literals.MCCommonLiterals, FeatureGraph {
+    start Persona;
+
+    symbol scope Persona = "persona" name:Name ":" PersonaAttribute*;
+    interface PersonaAttribute;
+
+    Description implements PersonaAttribute = "-" "description" ":" description:String;
+    ExecutionPlans implements PersonaAttribute = "-" "plans" ":" ExecutionPlan+;
+    ExecutionPlan = "-" name:Name ":" "[" ExecutionPlanEntry ("," ExecutionPlanEntry)* "]";
+
+    enum ExecutionPlanEntryType =
+        FLOW: "flow" |
+        SCENARIO: "scenario";
+
+    ExecutionPlanEntry = ExecutionPlanPrefix? Identifier;
+    ExecutionPlanPrefix = type:ExecutionPlanEntryType ":";
+}

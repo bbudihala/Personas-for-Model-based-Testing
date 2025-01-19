@@ -1,0 +1,18 @@
+grammar FeatureGraph extends Feature {
+    start FeatureGraph;
+
+    symbol scope FeatureGraph = "feature" name:Name ":" FeatureGraphAttribute*;
+    interface FeatureGraphAttribute;
+
+    FeatureGraphScenario implements FeatureGraphAttribute = ScenarioAnnotation* "-" "scenario" Identifier;
+
+    interface ScenarioAnnotation;
+
+    StartNode implements ScenarioAnnotation = "@start";
+    EndNode implements ScenarioAnnotation = "@end";
+    NextNode implements ScenarioAnnotation = "@next" "(" name:Identifier ("," name:Identifier)* ")";
+    FlowGroup implements ScenarioAnnotation = "@flow" "(" name:Identifier ("," name:Identifier)* ")";
+    ScenarioContext implements ScenarioAnnotation = "@contextProvider" "(" ("type" "=")? type:ContextProviderType "," ("source" "=")? source:String ")";
+
+    enum ContextProviderType = FILE: "FILE";
+}
