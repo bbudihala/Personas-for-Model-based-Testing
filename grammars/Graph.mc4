@@ -1,10 +1,10 @@
-grammar FeatureGraph extends Feature {
-    start FeatureGraph;
+grammar Graph extends Feature {
+    start Graph;
 
-    symbol scope FeatureGraph = "feature" name:Name ":" FeatureGraphAttribute*;
-    interface FeatureGraphAttribute;
+    symbol scope Graph = "feature" name:Name ":" GraphAttribute*;
+    interface GraphAttribute;
 
-    FeatureGraphScenario implements FeatureGraphAttribute = ScenarioAnnotation* "-" "scenario" Identifier;
+    GraphScenario implements GraphAttribute = ScenarioAnnotation* "-" "scenario" Identifier;
 
     interface ScenarioAnnotation;
 
